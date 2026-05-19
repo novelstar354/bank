@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>STAR BANK</title>
+
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2830/2830284.png">
+
+<style>
+
+:root{
+  --bg:#07111f;
+  --card:#0f172a;
+  --line:#22324f;
+  --gold:#facc15;
+  --green:#22c55e;
+  --red:#ef4444;
+  --blue:#3b82f6;
+  --text:#f8fafc;
+  --sub:#94a3b8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  height:100vh;
+  overflow:auto;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(circle at top,#1e3a8a 0%,#07111f 55%);
+
+  color:var(--text);
+}
+
+/* =========================
+   背景
+========================= */
+
+.bg-grid{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+  background-size:40px 40px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);
+  pointer-events:none;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(14px);
+  background:rgba(7,17,31,.7);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 22px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.logo{
+  width:70px;
+  height:70px;
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    linear-gradient(135deg,#fde68a,#facc15,#eab308);
+
+  color:#78350f;
+  font-size:34px;
+  font-weight:900;
+
+  box-shadow:
+    0 0 35px rgba(250,204,21,.4),
+    inset 0 2px 10px rgba(255,255,255,.5);
+}
+
+.bank-title{
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.bank-sub{
+  color:var(--sub);
+  margin-top:2px;
+  font-size:14px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  max-width:1200px;
+  height:calc(100vh - 110px);
+
+  margin:auto;
+
+  padding:18px 20px 20px;
+
+  display:flex;
+  flex-direction:column;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+
+  border-radius:28px;
+  padding:60px;
+
+  background:
+    linear-gradient(135deg,
+      rgba(30,64,175,.95),
+      rgba(15,23,42,.96));
+
+  border:1px solid rgba(255,255,255,.08);
+
+  margin-bottom:18px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+}
+
+.hero h1{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  font-size:15px;
+  line-height:1.6;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:380px;
+  height:380px;
+  border-radius:50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(250,204,21,.18),
+      transparent 70%);
+
+  top:-120px;
+  right:-120px;
+}
+
+
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+  gap:20px;
+}
+
+.card{
+  background:
+    linear-gradient(180deg,
+      rgba(15,23,42,.96),
+      rgba(15,23,42,.85));
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:28px;
+
+  padding:24px;
+
+  position:relative;
+  overflow:auto;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.35);
+
+  transition:.25s;
+     padding:18px;
+  border-radius:24px;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,.03),
+      transparent);
+
+  pointer-events:none;
+}
+
+.label{
+  color:var(--sub);
+  font-size:14px;
+  margin-bottom:14px;
+}
+
+.value{
+  font-size:30px;
+  font-weight:900;
+}
+
+.gold{
+  color:var(--gold);
+}
+
+.green{
+  color:var(--green);
+}
+
+.red{
+  color:var(--red);
+}
+
+.small{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--sub);
+}
+
+/* =========================
+   TRANSACTION
+========================= */
+
+.bank-panel{
+  margin-top:18px;
+
+  background:
+    rgba(15,23,42,.95);
+
+  border-radius:24px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  padding:28px;
+
+  box-shadow:
+    0 14px 50px rgba(0,0,0,.35);
+padding:22px;
+}
+
+.bank-panel h2{
+  font-size:24px;
+  margin-bottom:16px;
+}
+
+.input-wrap{
+  margin-bottom:20px;
+}
+
+.input-wrap label{
+  display:block;
+  color:var(--sub);
+  margin-bottom:8px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:none;
+  outline:none;
+
+  border-radius:18px;
+
+  background:#1e293b;
+  color:white;
+
+  font-size:15px;
+}
+
+.btn-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+
+  gap:16px;
+}
+
+button{
+  border:none;
+  border-radius:18px;
+  padding:18px;
+
+  color:white;
+  font-size:17px;
+  font-weight:800;
+
+  cursor:pointer;
+  transition:.18s;
+}
+
+button:hover{
+  transform:translateY(-2px) scale(1.01);
+}
+
+.deposit{
+  background:
+    linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.withdraw{
+  background:
+    linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+.loan{
+  background:
+    linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.repay{
+  background:
+    linear-gradient(135deg,#f59e0b,#ea580c);
+}
+
+/* =========================
+   LOG
+========================= */
+
+.log{
+  margin-top:18px;
+
+  flex:1;
+
+  min-height:120px;
+  max-height:none;
+
+  padding:18px;
+  border-radius:24px;
+}
+
+.log-title{
+  font-size:20px;
+}
+
+.log-item{
+  padding:8px 0;
+  font-size:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .hero{
+    padding:28px;
+  }
+
+  .hero h1{
+    font-size:38px;
+  }
+
+  .value{
+    font-size:30px;
+  }
+
+  .bank-title{
+    font-size:26px;
+  }
+
+}
+@media(max-width:900px){
+
+  body{
+    height:auto;
+    overflow:auto;
+  }
+
+  .container{
+    height:auto;
+    display:block;
+  }
+
+}
+/* PC専用調整 */
+
+@media(min-width:1000px){
+
+  .grid{
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .btn-grid{
+    grid-template-columns:
+      repeat(4,1fr);
+  }
+
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<header>
+
+  <div class="header-inner">
+
+    <div class="logo-wrap">
+
+      <div class="logo">
+        ★
+      </div>
+
+      <div>
+
+        <div class="bank-title">
+          STAR BANK
+        </div>
+
+        <div class="bank-sub">
+          Star Empire Financial Group
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<div class="container">
+
+  <section class="hero">
+
+    <h1>
+      未来型スターコイン銀行
+    </h1>
+
+    <p>
+      スターコインを安全に預金し、
+      利息で資産を増やせます。
+      さらにローンサービスにも対応。
+      STARネットワークとリアルタイム同期。
+    </p>
+
+  </section>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="label">
+        ウォレット残高
+      </div>
+
+      <div
+        class="value gold"
+        id="walletText"
+      >
+        0 STAR
+      </div>
+
+      <div class="small">
+        レートサイトと同期
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="label">
+        銀行預金
+      </div>
+
+      <div
+        class="value green"
+        id="bankText"
+      >
+        0 STAR
+      </div>
+
+      <div class="small">
+        15秒ごとに +2%
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="label">
+        ローン残高
+      </div>
+
+      <div
+        class="value red"
+        id="loanText"
+      >
+        0 STAR
+      </div>
+
+      <div class="small">
+        15秒ごとに +4%
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bank-panel">
+
+    <h2>
+      取引サービス
+    </h2>
+
+    <div class="input-wrap">
+
+      <label>
+        数量
+      </label>
+
+      <input
+        type="number"
+        id="amount"
+        value="100"
+        min="1"
+      >
+
+    </div>
+
+    <div class="btn-grid">
+
+      <button
+        class="deposit"
+        id="depositBtn"
+      >
+        預金する
+      </button>
+
+      <button
+        class="withdraw"
+        id="withdrawBtn"
+      >
+        引き出す
+      </button>
+
+      <button
+        class="loan"
+        id="loanBtn"
+      >
+        ローンを借りる
+      </button>
+
+      <button
+        class="repay"
+        id="repayBtn"
+      >
+        ローン返済
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="log" id="log">
+
+    <div class="log-title">
+      取引履歴
+    </div>
+
+    <div class="log-item">
+      STAR BANK 起動
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* ======================
+   データ
+====================== */
+
+let starCoins =
+  Number(
+    localStorage.getItem("starCoins")
+  ) || 0;
+
+let bank =
+  Number(
+    localStorage.getItem("starBank")
+  ) || 0;
+
+let loan =
+  Number(
+    localStorage.getItem("starLoan")
+  ) || 0;
+
+/* ======================
+   要素
+====================== */
+
+const walletText =
+  document.getElementById("walletText");
+
+const bankText =
+  document.getElementById("bankText");
+
+const loanText =
+  document.getElementById("loanText");
+
+const log =
+  document.getElementById("log");
+
+/* ======================
+   保存
+====================== */
+
+function saveData(){
+
+  localStorage.setItem(
+    "starCoins",
+    Math.floor(starCoins)
+  );
+
+  localStorage.setItem(
+    "starBank",
+    Math.floor(bank)
+  );
+
+  localStorage.setItem(
+    "starLoan",
+    Math.floor(loan)
+  );
+
+}
+
+/* ======================
+   UI
+====================== */
+
+function updateUI(){
+
+  walletText.textContent =
+    Math.floor(starCoins) +
+    " STAR";
+
+  bankText.textContent =
+    Math.floor(bank) +
+    " STAR";
+
+  loanText.textContent =
+    Math.floor(loan) +
+    " STAR";
+
+}
+
+/* ======================
+   ログ
+====================== */
+
+function addLog(text){
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "log-item";
+
+  div.textContent =
+    "[" +
+    new Date().toLocaleTimeString() +
+    "] " +
+    text;
+
+  log.prepend(div);
+
+}
+
+/* ======================
+   数量
+====================== */
+
+function getAmount(){
+
+  const value =
+    Number(
+      document.getElementById("amount").value
+    );
+
+  if(
+    isNaN(value) ||
+    value <= 0
+  ){
+    return 1;
+  }
+
+  return Math.floor(value);
+
+}
+
+/* ======================
+   預金
+====================== */
+
+document
+.getElementById("depositBtn")
+.addEventListener("click",()=>{
+
+  const amount =
+    getAmount();
+
+  if(starCoins < amount){
+
+    addLog("STAR不足");
+    return;
+
+  }
+
+  starCoins -= amount;
+  bank += amount;
+
+  saveData();
+  updateUI();
+
+  addLog(
+    amount +
+    " STAR を預金"
+  );
+
+});
+
+/* ======================
+   引き出し
+====================== */
+
+document
+.getElementById("withdrawBtn")
+.addEventListener("click",()=>{
+
+  const amount =
+    getAmount();
+
+  if(bank < amount){
+
+    addLog("預金不足");
+    return;
+
+  }
+
+  bank -= amount;
+  starCoins += amount;
+
+  saveData();
+  updateUI();
+
+  addLog(
+    amount +
+    " STAR を引き出し"
+  );
+
+});
+
+/* ======================
+   借金
+====================== */
+
+document
+.getElementById("loanBtn")
+.addEventListener("click",()=>{
+
+  const amount =
+    getAmount();
+
+  loan += amount;
+  starCoins += amount;
+
+  saveData();
+  updateUI();
+
+  addLog(
+    amount +
+    " STAR 借入"
+  );
+
+});
+
+/* ======================
+   返済
+====================== */
+
+document
+.getElementById("repayBtn")
+.addEventListener("click",()=>{
+
+  const amount =
+    getAmount();
+
+  if(starCoins < amount){
+
+    addLog("STAR不足");
+    return;
+
+  }
+
+  if(loan <= 0){
+
+    addLog("借金なし");
+    return;
+
+  }
+
+  const pay =
+    Math.min(amount,loan);
+
+  loan -= pay;
+  starCoins -= pay;
+
+  saveData();
+  updateUI();
+
+  addLog(
+    pay +
+    " STAR 返済"
+  );
+
+});
+
+/* ======================
+   利息
+====================== */
+
+setInterval(()=>{
+
+  if(bank > 0){
+
+    const interest =
+      bank * 0.02;
+
+    bank += interest;
+
+    addLog(
+      "預金利息 +" +
+      Math.floor(interest) +
+      " STAR"
+    );
+
+  }
+
+  if(loan > 0){
+
+    const interest =
+      loan * 0.04;
+
+    loan += interest;
+
+    addLog(
+      "ローン利息 +" +
+      Math.floor(interest) +
+      " STAR"
+    );
+
+  }
+
+  saveData();
+  updateUI();
+
+},15000);
+
+/* ======================
+   別タブ同期
+====================== */
+
+window.addEventListener("storage",()=>{
+
+  starCoins =
+    Number(
+      localStorage.getItem("starCoins")
+    ) || 0;
+
+  bank =
+    Number(
+      localStorage.getItem("starBank")
+    ) || 0;
+
+  loan =
+    Number(
+      localStorage.getItem("starLoan")
+    ) || 0;
+
+  updateUI();
+
+});
+
+/* ======================
+   初期化
+====================== */
+
+updateUI();
+
+</script>
+
+</body>
+</html>
