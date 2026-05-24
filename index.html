@@ -532,7 +532,7 @@ button:hover{
       </div>
 
       <div class="small">
-        15秒ごとに +2%
+        15秒ごとに +0.2%
       </div>
 
     </div>
@@ -551,7 +551,7 @@ button:hover{
       </div>
 
       <div class="small">
-        15秒ごとに +4%
+        15秒ごとに +2%
       </div>
 
     </div>
@@ -711,7 +711,7 @@ function updateUI(){
    ログ
 ====================== */
 
-function addLog(text){
+function addLog(text,type="normal"){
 
   const div =
     document.createElement("div");
@@ -725,7 +725,37 @@ function addLog(text){
     "] " +
     text;
 
+  if(type === "deposit"){
+
+    div.style.color = "#22c55e";
+
+  }else if(type === "withdraw"){
+
+    div.style.color = "#ef4444";
+
+  }else if(type === "loan"){
+
+    div.style.color = "#3b82f6";
+
+  }else if(type === "interest"){
+
+    div.style.color = "#facc15";
+
+  }else if(type === "repay"){
+
+    div.style.color = "#fb923c";
+
+  }
+
   log.prepend(div);
+
+  /* 件数制限 */
+
+  while(log.children.length > 30){
+
+    log.removeChild(log.lastChild);
+
+  }
 
 }
 
@@ -776,9 +806,10 @@ document
   updateUI();
 
   addLog(
-    amount +
-    " STAR を預金"
-  );
+  amount +
+  " STAR を預金",
+  "deposit"
+);
 
 });
 
@@ -807,9 +838,10 @@ document
   updateUI();
 
   addLog(
-    amount +
-    " STAR を引き出し"
-  );
+  amount +
+  " STAR を引き出し",
+  "withdraw"
+);
 
 });
 
@@ -831,9 +863,10 @@ document
   updateUI();
 
   addLog(
-    amount +
-    " STAR 借入"
-  );
+  amount +
+  " STAR 借入",
+  "loan"
+);
 
 });
 
@@ -871,10 +904,11 @@ document
   saveData();
   updateUI();
 
-  addLog(
-    pay +
-    " STAR 返済"
-  );
+ addLog(
+  pay +
+  " STAR 返済",
+  "repay"
+);
 
 });
 
@@ -887,30 +921,32 @@ setInterval(()=>{
   if(bank > 0){
 
     const interest =
-      bank * 0.02;
+      bank * 0.002;
 
     bank += interest;
 
     addLog(
-      "預金利息 +" +
-      Math.floor(interest) +
-      " STAR"
-    );
+  "預金利息 +" +
+  Math.floor(interest) +
+  " STAR",
+  "interest"
+);
 
   }
 
   if(loan > 0){
 
     const interest =
-      loan * 0.04;
+      loan * 0.02;
 
     loan += interest;
 
     addLog(
-      "ローン利息 +" +
-      Math.floor(interest) +
-      " STAR"
-    );
+  "ローン利息 +" +
+  Math.floor(interest) +
+  " STAR",
+  "interest"
+);
 
   }
 
