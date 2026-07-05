@@ -691,19 +691,20 @@ function saveData(){
    UI
 ====================== */
 
+function formatNumber(value){
+  return Math.floor(value).toLocaleString("ja-JP");
+}
+
 function updateUI(){
 
   walletText.textContent =
-    Math.floor(starCoins) +
-    " STAR";
+    formatNumber(starCoins) + " STAR";
 
   bankText.textContent =
-    Math.floor(bank) +
-    " STAR";
+    formatNumber(bank) + " STAR";
 
   loanText.textContent =
-    Math.floor(loan) +
-    " STAR";
+    formatNumber(loan) + " STAR";
 
 }
 
@@ -806,7 +807,7 @@ document
   updateUI();
 
   addLog(
-  amount +
+  formatNumber(amount) +
   " STAR を預金",
   "deposit"
 );
@@ -838,7 +839,7 @@ document
   updateUI();
 
   addLog(
-  amount +
+  formatNumber(amount) +
   " STAR を引き出し",
   "withdraw"
 );
@@ -863,7 +864,7 @@ document
   updateUI();
 
   addLog(
-  amount +
+  formatNumber(amount) +
   " STAR 借入",
   "loan"
 );
