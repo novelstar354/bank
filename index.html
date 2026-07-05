@@ -253,8 +253,19 @@ header{
 }
 
 .value{
-  font-size:30px;
-  font-weight:900;
+    font-size:30px;
+    font-weight:900;
+
+    display:flex;
+    align-items:center;
+
+    width:100%;
+    min-width:0;
+
+    white-space:nowrap;
+    overflow:hidden;
+
+    font-size:clamp(18px,2.2vw,30px);
 }
 
 .gold{
@@ -706,8 +717,38 @@ function updateUI(){
   loanText.textContent =
     formatNumber(loan) + " STAR";
 
-}
+  fitFont(walletText);
+  fitFont(bankText);
+  fitFont(loanText);
 
+}
+function fitFont(el){
+
+    const maxSize = 30;
+    const minSize = 16;
+
+    let size = parseFloat(getComputedStyle(el).fontSize);
+
+    if (isNaN(size)) size = maxSize;
+
+    // はみ出したら小さくする
+    while (el.scrollWidth > el.clientWidth && size > minSize) {
+        size--;
+        el.style.fontSize = size + "px";
+    }
+
+    // 余裕があれば少しずつ戻す
+    while (el.scrollWidth < el.clientWidth - 20 && size < maxSize) {
+        size++;
+        el.style.fontSize = size + "px";
+
+        if (el.scrollWidth > el.clientWidth) {
+            size--;
+            el.style.fontSize = size + "px";
+            break;
+        }
+    }
+}
 /* ======================
    ログ
 ====================== */
